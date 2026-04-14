@@ -1,36 +1,3 @@
-'''
-import socket
-import time
-import struct
-import config
-
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-T1 = time.time()
-
-message = f"{T1}|{config.SECRET_KEY}"
-
-client_socket.sendto(message.encode(), (config.SERVER_IP, config.PORT))
-
-data, address = client_socket.recvfrom(1024)
-
-T4 = time.time()
-
-T1, T2, T3 = struct.unpack("ddd", data)
-
-offset = ((T2 - T1) + (T3 - T4)) / 2
-delay = (T4 - T1) - (T3 - T2)
-
-corrected_time = time.time() + offset
-
-print("---- Clock Synchronization Result ----")
-print("Server Address:", address)
-print("Local Time Before Sync:", time.ctime())
-print("Offset:", offset)
-print("Network Delay:", delay)
-print("Corrected Local Time:", time.ctime(corrected_time))
-
-'''
 
 
 #Athentication+ change timestamp according to master pc
